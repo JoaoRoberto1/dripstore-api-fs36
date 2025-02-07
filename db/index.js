@@ -15,8 +15,6 @@ const conectarBanco = async () => {
       console.error('[ERRO]: Não foi possível conectar ao banco de dados:', error);
     }
   };
-  
-
 
   conectarBanco();
 
