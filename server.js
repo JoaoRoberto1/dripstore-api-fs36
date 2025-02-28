@@ -2,6 +2,8 @@ import express from 'express';
 import sequelize from './db/index.js';
 import { iniciarBanco } from './db/sync.js';
 import { produtoController } from './controllers/produto.controller.js';
+import cors from 'cors';
+import { categoriaController } from './controllers/categoria.controller.js';
 
 const app = express();
 app.use(express.json());
