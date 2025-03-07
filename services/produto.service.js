@@ -1,10 +1,17 @@
+import Categoria from "../models/categoria.model.js";
 import Produto from "../models/produto.model.js";
 
 const produtoService = {
   // Método para buscar todos os produtos
   async getAll(req, res) {
     try {
-      const produtos = await Produto.findAll();
+      const produtos = await Produto.findAll({
+        include: {
+          model: Categoria,
+          as: 'categoria',
+          attributes: ['id', 'nome'],
+        },
+      });
       res.status(200).json(produtos);
     } catch (error) {
       console.error('[ERRO]:', error);
@@ -30,8 +37,14 @@ const produtoService = {
   // Método para criar um novo produto
   async create(req, res) {
     try {
-      const { nome, preco, categoriaId } = req.body;
-      const novoProduto = await Produto.create({ nome, preco, categoriaId });
+      const { nome, descricao, avaliacao, tamanho, cor, preco, categoriaId } = req.body;
+
+      const categoriaExiste = await Categoria.findByPk(categoriaId);
+      if (!categoriaExiste) {
+        return res.status(404).json({ mensagem: 'Categoria não encontrada'})
+      }
+
+      const novoProduto = await Produto.create({ nome, descricao, avaliacao, tamanho, cor, preco, categoriaId });
       res.status(201).json(novoProduto);
     } catch (error) {
       console.error('[ERRO]:', error);

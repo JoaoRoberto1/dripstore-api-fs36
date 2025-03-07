@@ -30,8 +30,8 @@ const categoriaService = {
   // Método para criar uma nova categoria
   async create(req, res) {
     try {
-      const { nome } = req.body;
-      const novaCategoria = await Categoria.create({ nome });
+      const { nome, codigo, descricao } = req.body;
+      const novaCategoria = await Categoria.create({ nome, codigo, descricao });
       res.status(201).json(novaCategoria);
     } catch (error) {
       console.error('[ERRO]:', error);
