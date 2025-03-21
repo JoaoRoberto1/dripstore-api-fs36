@@ -3,7 +3,8 @@ import sequelize from './db/index.js';
 import { iniciarBanco } from './db/sync.js';
 import { produtoController } from './controllers/produto.controller.js';
 import { categoriaController } from './controllers/categoria.controller.js';
-import { usuarioController } from './controllers/usuario.controller.js'; // Adicionado
+import { usuarioController } from './controllers/usuario.controller.js';
+import { authController } from './controllers/auth.controller.js'; // Adicionado
 import cors from 'cors';
 
 const app = express();
@@ -21,7 +22,8 @@ iniciarBanco();
 
 produtoController(app);
 categoriaController(app);
-usuarioController(app); // Adicionado
+usuarioController(app);
+authController(app); // Adicionado
 
 app.listen(PORT, HOST, () => {
     console.log(`App de exemplo está rodando em http://${HOST}:${PORT}`);
