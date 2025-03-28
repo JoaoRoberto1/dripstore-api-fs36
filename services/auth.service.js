@@ -1,5 +1,4 @@
 import Usuario from "../models/usuario.model.js";
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const authService = {

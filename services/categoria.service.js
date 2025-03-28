@@ -74,6 +74,28 @@ const categoriaService = {
       console.error('[ERRO]:', error);
       res.status(500).json({ mensagem: 'Erro ao excluir categoria' });
     }
+  },
+
+  // Método para inserir categorias iniciais
+  async insertCategories() {
+    try {
+      const categories = [
+        { codigo: 1, nome: 'Eletrônicos', descricao: 'Produtos eletrônicos' },
+        { codigo: 2, nome: 'Eletrodomésticos', descricao: 'Produtos eletrodomésticos' },
+        { codigo: 3, nome: 'Informática', descricao: 'Produtos de informática' },
+        { codigo: 4, nome: 'Móveis', descricao: 'Produtos de móveis' },
+        { codigo: 5, nome: 'Decoração', descricao: 'Produtos de decoração' }
+      ];
+
+      // Inserindo as categorias no banco de dados
+      for (const category of categories) {
+        await Categoria.create(category);
+      }
+
+      console.log('Categorias inseridas com sucesso!');
+    } catch (error) {
+      console.error('[ERRO]:', error);
+    }
   }
 };
 

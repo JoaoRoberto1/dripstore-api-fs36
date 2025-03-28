@@ -12,7 +12,7 @@ export const produtoController = app => {
         .delete('/produtos/:id', produtoService.delete); // Excluir um produto
 
     // Prefixo global "/api/produtos" para todas as rotas de produtos
-    app.use('/api', router);
+    app.use('/api/produtos', router);
 }
 
 export default router;

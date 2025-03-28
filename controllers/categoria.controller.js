@@ -10,7 +10,7 @@ export const categoriaController = (app) => {
         .delete('/categorias/:id', categoriaService.delete); // Excluir um categoria
 
     // Prefixo global "/api/categorias" para todas as rotas de categorias
-    app.use('/api', router);
+    app.use('/api/categorias', router);
 }
 
 export default router;

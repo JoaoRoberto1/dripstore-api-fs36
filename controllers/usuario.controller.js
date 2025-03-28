@@ -10,7 +10,7 @@ export const usuarioController = (app) => {
         .delete('/usuarios/:id', usuarioService.delete); // Excluir um usuário
 
     // Prefixo global "/api/usuarios" para todas as rotas de usuários
-    app.use('/api', router);
+    app.use('/api/usuarios', router);
 }
 
 export default router;
