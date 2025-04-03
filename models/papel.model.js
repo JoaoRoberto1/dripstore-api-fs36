@@ -1,5 +1,6 @@
-import { Sequelize, DataTypes } from "sequelize"; // Corrigido para importar o Sequelize e DataTypes
-import sequelize from "../db/index.js";  // Mantenha a importação do sequelize
+import { DataTypes } from "sequelize";
+import sequelize from "../db/index.js";
+import Usuario from "./usuario.model.js"; // Import Usuario model
 
 const Papel = sequelize.define(
   "Papel",
@@ -13,11 +14,17 @@ const Papel = sequelize.define(
     nome: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: { msg: "O nome não pode estar vazio" },
+      },
     },
     codigo: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: { msg: "Este código já está em uso" },
+      validate: {
+        notEmpty: { msg: "O código não pode estar vazio" },
+      },
     },
   },
   {
@@ -25,5 +32,8 @@ const Papel = sequelize.define(
     timestamps: true,
   }
 );
+
+// Definir relacionamento N para N com Usuario
+Papel.belongsToMany(Usuario, { through: "usuario_papel", as: "usuarios" });
 
 export default Papel;

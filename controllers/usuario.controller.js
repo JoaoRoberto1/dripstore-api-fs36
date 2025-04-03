@@ -3,14 +3,28 @@ import usuarioService from '../services/usuario.service.js'; // Adjust the impor
 const router = express.Router();
 
 export const usuarioController = (app) => {
-    router.get('/usuarios', usuarioService.getAll)       // Buscar todos os usuários
-        .get('/usuarios/:id', usuarioService.getById)    // Buscar um usuário por ID
-        .post('/usuarios', usuarioService.create)        // Criar um usuário
-        .put('/usuarios/:id', usuarioService.update)     // Atualizar um usuário
-        .delete('/usuarios/:id', usuarioService.delete); // Excluir um usuário
+    try {
+        if (!usuarioService) {
+            throw new Error('usuarioService não está definido.');
+        }
 
-    // Prefixo global "/api/usuarios" para todas as rotas de usuários
-    app.use('/api/usuarios', router);
-}
+        router.get('/usuarios', usuarioService.getAll || ((req, res) => res.status(501).send('Não implementado')))
+            .get('/usuarios/:id', usuarioService.getById || ((req, res) => res.status(501).send('Não implementado')))
+            .post('/usuarios', usuarioService.create || ((req, res) => res.status(501).send('Não implementado')))
+            .put('/usuarios/:id', usuarioService.update || ((req, res) => res.status(501).send('Não implementado')))
+            .delete('/usuarios/:id', usuarioService.delete || ((req, res) => res.status(501).send('Não implementado')));
 
-export default router;
+        // Prefixo global "/api/usuarios" para todas as rotas de usuários
+        app.use('/api/usuarios', router);
+
+        // Middleware para capturar erros
+        app.use((err, req, res, next) => {
+            console.error('Erro no servidor:', err);
+            res.status(500).send('Erro interno do servidor.');
+        });
+    } catch (error) {
+        console.error('Erro ao configurar as rotas de usuário:', error);
+    }
+};
+
+export default usuarioController;

@@ -1,8 +1,9 @@
-POST http://localhost:3000/api/usuarios
+POST http://localhost:3000/api/auth/cadastrar
 Content-Type: application/json
 
 {
-  "nome": "John Doe",
-  "email": "john.doe@example.com",
-  "senha": "password123"
+  "nome": "João Roberto",
+  "email": "joao.roberto@gmail.com",
+  "senha": "senha123",
+  "cpf": "12345678901",
 }

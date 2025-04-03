@@ -1,16 +1,16 @@
 import express from 'express';
-import papelervice from '../services/usuario.service.js'; // Adjust the import path as needed
+import papelService from '../services/papel.service.js'; // Fix import path
 const router = express.Router();
 
-export const usuarioController = (app) => {
-    router.get('/papel', papelervice.getAll)       // Buscar todos os usuários
-        .get('/papel/:id', papelervice.getById)    // Buscar um usuário por ID
-        .post('/papel', papelervice.create)        // Criar um usuário
-        .put('/papel/:id', papelervice.update)     // Atualizar um usuário
-        .delete('/papel/:id', papelervice.delete); // Excluir um usuário
+export const papelController = (app) => {
+    router.get('/', papelService.getAll)               // Buscar todos os papéis
+        .get('/:id', papelService.getById)             // Buscar um papel por ID
+        .post('/', papelService.create)                // Criar um papel
+        .put('/:id', papelService.update)              // Atualizar um papel
+        .delete('/:id', papelService.delete);          // Excluir um papel
 
-    // Prefixo global "/api/papel" para todas as rotas de usuários
-    app.use('/api/papel', router);
+    // Prefixo global "/api/papeis" para todas as rotas de papéis
+    app.use('/api/papeis', router);
 }
 
 export default router;
